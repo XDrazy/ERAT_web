@@ -7,24 +7,42 @@
 
 ---
 
-## 功能特性
+## 项目结构
 
-- [x] 班级管理：增删班级、Excel导入学生名单、学生增删改查
-- [x] 课程管理：多课程增删
-- [x] 实验报告目录自动初始化，一键批量创建课程-班级-实验目录
-- [x] 按班级和实验统计缺交情况
-- [x] 按实验统计缺交学生
-- [x] 提交率折线图可视化
-- [x] 统计结果一键导出 Excel
-- [x] 全数据自动持久化，重启无忧
-- [x] Bootstrap5 界面美观简洁
-- [x] 支持中文、适配 PC 和移动端
+ERAT_web-master/
+├── app.py
+├── logic/
+│ ├── init.py
+│ ├── student_manager.py
+│ ├── course_manager.py
+│ ├── report_parser.py
+│ ├── stat_exporter.py
+│ └── logger.py
+├── templates/
+│ ├── base.html
+│ ├── index.html
+│ ├── class_manage.html
+│ ├── course_manage.html
+│ ├── student_manage.html
+│ ├── student_edit.html
+│ ├── stat_manage.html
+│ ├── init_exp_dir.html
+├── static/
+│ └── style.css
+├── uploads/
+├── data/
 
 ---
 
-## 安装依赖
+## 快速上手
 
-**建议使用 Python 3.8 及以上。**
+1. **克隆或下载本项目**
+2. **安装依赖**
 
-```bash
-pip install Flask pandas openpyxl matplotlib
+   ```bash
+   pip install Flask pandas openpyxl matplotlib
+3. **运行主程序**
+   ```bash
+   python app.py
+4. **浏览器访问**
+   http://127.0.0.1:5000
