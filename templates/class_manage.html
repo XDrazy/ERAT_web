@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="mt-4">
+  <h3>班级管理</h3>
+  <form method="post" class="row g-3 mb-3">
+    <div class="col-auto">
+      <input type="text" class="form-control" name="class_name" placeholder="班级名称" required>
+    </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-success">添加班级</button>
+    </div>
+  </form>
+  <ul class="list-group mb-4">
+    {% for c in classes %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <span>{{ c['name'] }}</span>
+        <span>
+          <a class="btn btn-sm btn-info me-1" href="{{ url_for('student_manage', class_id=c['id']) }}">学生名单</a>
+          <a class="btn btn-sm btn-danger" href="{{ url_for('delete_class', cid=c['id']) }}">删除</a>
+        </span>
+      </li>
+    {% endfor %}
+  </ul>
+  <h5>导入学生名单</h5>
+  <form action="{{ url_for('import_students') }}" method="post" enctype="multipart/form-data" class="row g-3 align-items-center">
+    <div class="col-auto">
+      <select name="class_id" class="form-select">
+        {% for c in classes %}
+          <option value="{{ c['id'] }}">{{ c['name'] }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-auto">
+      <input type="file" name="student_file" class="form-control" required>
+    </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-primary">导入</button>
+    </div>
+  </form>
+  <div class="form-text mt-2">
+    <strong>提示：</strong>导入的Excel第一行需含 <code>学号、姓名、年级、专业、班级</code> 字段，然后从第二行开始才是学生数据！
+  </div>
+</div>
+{% endblock %}

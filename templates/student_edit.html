@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="mt-4">
+  <h3>修改学生信息</h3>
+  <form method="post" class="row g-3 align-items-center mb-3">
+    <div class="col"><input name="sid" class="form-control" value="{{ stu.学号 }}" required></div>
+    <div class="col"><input name="name" class="form-control" value="{{ stu.姓名 }}" required></div>
+    <div class="col"><input name="grade" class="form-control" value="{{ stu.年级 }}" required></div>
+    <div class="col"><input name="major" class="form-control" value="{{ stu.专业 }}" required></div>
+    <div class="col-auto"><button type="submit" class="btn btn-success">保存</button></div>
+  </form>
+  <a class="btn btn-secondary" href="{{ url_for('student_manage', class_id=class_id) }}">返回</a>
+</div>
+{% endblock %}

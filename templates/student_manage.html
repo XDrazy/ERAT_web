@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="mt-4">
+  <h3>班级【{{ class_name }}】学生名单</h3>
+  <form method="post" class="row g-3 align-items-center mb-4">
+    <div class="col"><input name="sid" class="form-control" placeholder="学号" required></div>
+    <div class="col"><input name="name" class="form-control" placeholder="姓名" required></div>
+    <div class="col"><input name="grade" class="form-control" placeholder="年级" required></div>
+    <div class="col"><input name="major" class="form-control" placeholder="专业" required></div>
+    <div class="col-auto"><button type="submit" class="btn btn-success">添加学生</button></div>
+  </form>
+  <table class="table table-bordered table-hover align-middle">
+    <thead class="table-light">
+      <tr><th>学号</th><th>姓名</th><th>年级</th><th>专业</th><th>操作</th></tr>
+    </thead>
+    <tbody>
+    {% for stu in students %}
+      <tr>
+        <td>{{ stu.学号 }}</td>
+        <td>{{ stu.姓名 }}</td>
+        <td>{{ stu.年级 }}</td>
+        <td>{{ stu.专业 }}</td>
+        <td>
+          <a class="btn btn-sm btn-warning" href="{{ url_for('student_edit', class_id=class_id, sid=stu.学号) }}">修改</a>
+          <a class="btn btn-sm btn-danger ms-1" href="{{ url_for('student_delete', class_id=class_id, sid=stu.学号) }}">删除</a>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <a class="btn btn-secondary mt-2" href="{{ url_for('class_manage') }}">返回班级管理</a>
+</div>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="mt-4">
+  <h3>实验报告缺交统计</h3>
+  {% if not root_dir %}
+    <div class="alert alert-warning">请先在首页设置实验报告根目录！</div>
+  {% else %}
+    <div class="mb-2">实验报告根目录：<span class="badge bg-secondary">{{ root_dir }}</span></div>
+    <form method="post" class="row g-3 align-items-center mb-3">
+      <div class="col-auto">
+        <select name="course_id" class="form-select">
+          {% for c in courses %}
+            <option value="{{ c['id'] }}">{{ c['name'] }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-auto">
+        <select name="class_id" class="form-select">
+          {% for c in classes %}
+            <option value="{{ c['id'] }}">{{ c['name'] }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-primary">统计</button>
+      </div>
+    </form>
+    {% if result %}
+    <!-- 保持原有内容 -->
+    <h5 class="mt-4">每位学生缺交统计</h5>
+    <table class="table table-bordered table-hover align-middle">
+      <thead class="table-light">
+        <tr><th>学号</th><th>姓名</th><th>缺交次数</th><th>缺交实验</th></tr>
+      </thead>
+      <tbody>
+        {% for (sid, name), stat in result.student_stat.items() %}
+        <tr>
+          <td>{{ sid }}</td>
+          <td>{{ name }}</td>
+          <td>{{ stat['缺交次数'] }}</td>
+          <td>{{ stat['缺交实验']|join(', ') }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <h5 class="mt-4">每个实验缺交统计</h5>
+    <table class="table table-bordered table-hover align-middle">
+      <thead class="table-light">
+        <tr><th>实验名</th><th>缺交人数</th><th>名单</th></tr>
+      </thead>
+      <tbody>
+        {% for exp, stu_list in result.exp_stat.items() %}
+        <tr>
+          <td>{{ exp }}</td>
+          <td>{{ stu_list|length }}</td>
+          <td>
+            {% for sid, name in stu_list %}
+              {{ sid }}-{{ name }}<br>
+            {% endfor %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <a href="{{ url_for('stat_export') }}" class="btn btn-outline-success mb-3">导出统计结果(Excel)</a>
+    {% if plot_url %}
+      <div class="my-4">
+        <h5>提交率折线图</h5>
+        <img class="img-fluid rounded border" src="{{ plot_url }}">
+      </div>
+    {% endif %}
+    {% endif %}
+  {% endif %}
+</div>
+{% endblock %}

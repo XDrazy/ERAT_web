@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="mt-4">
+  <h3>一键生成实验报告存放目录</h3>
+  {% if not root_dir %}
+    <div class="alert alert-warning">请先在首页设置实验报告根目录！</div>
+  {% else %}
+    <div class="mb-2">实验报告根目录：<span class="badge bg-secondary">{{ root_dir }}</span></div>
+    <form method="post" class="row g-3 align-items-center mb-3">
+      <div class="col-auto">
+        <select name="course_id" class="form-select">{% for c in courses %}<option value="{{c.id}}">{{c.name}}</option>{% endfor %}</select>
+      </div>
+      <div class="col-auto">
+        <select name="class_id" class="form-select">{% for c in classes %}<option value="{{c.id}}">{{c.name}}</option>{% endfor %}</select>
+      </div>
+      <div class="col-auto">
+        <input name="exp_name" class="form-control" required placeholder="实验名">
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-primary">生成目录</button>
+      </div>
+    </form>
+    {% if msg %}<div class="alert alert-info mt-3">{{ msg }}</div>{% endif %}
+  {% endif %}
+</div>
+{% endblock %}

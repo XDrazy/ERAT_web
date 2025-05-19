@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="text-center mt-5">
+  <h1 class="mb-4">欢迎使用 ERAT 实验报告缺交统计系统</h1>
+  {% if not root_dir %}
+    <form method="post" class="d-inline-block mt-4">
+      <div class="input-group">
+        <input name="root_dir" type="text" class="form-control" placeholder="请输入实验报告根目录, 例 D:/lab_reports" required>
+        <button type="submit" class="btn btn-primary">设置根目录</button>
+      </div>
+    </form>
+  {% else %}
+    <div class="mb-4">
+      <div class="alert alert-info mb-3 d-inline-block">
+        <strong>实验报告根目录:</strong> {{ root_dir }}
+        <form method="post" action="{{ url_for('set_root_dir_route') }}" class="d-inline-block ms-3">
+          <input name="root_dir" type="text" style="width:300px;display:inline-block;" class="form-control d-inline-block" placeholder="修改根目录" required>
+          <button type="submit" class="btn btn-sm btn-warning">修改</button>
+        </form>
+      </div>
+    </div>
+    <p class="lead mb-5">请注意:学生提交的实验格式命名需严格按照如下:<code>实验名_学号_姓名.docx</code>,否则可能无法识别</p>
+    <img src="https://img.icons8.com/color/96/000000/analytics.png" alt="logo" class="mb-3"/>
+  {% endif %}
+</div>
+{% endblock %}
