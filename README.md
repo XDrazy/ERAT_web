@@ -32,18 +32,3 @@ your_project/
 │   └── style.css
 ├── uploads/
 ├── data/
-
----
-
-## 快速上手
-
-1. **克隆或下载本项目**
-2. **安装依赖**
-
-   ```bash
-   pip install Flask pandas openpyxl matplotlib
-3. **运行主程序**
-   ```bash
-   python app.py
-4. **浏览器访问**
-   http://127.0.0.1:5000
